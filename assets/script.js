@@ -16,7 +16,7 @@ const tilt = $('.js-tilt').tilt({
 		  	var card = document.getElementById('card');
 		  		var city = 'kolkata';
 		  		$.ajax({
-		                url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
+		                url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
 		                type: "GET",
 		                dataType: "jsonp",
 		                success: function(data){
@@ -45,7 +45,7 @@ const tilt = $('.js-tilt').tilt({
 		                    $('#humidity').html(humidity+' %');
 		                    $('#pressure').html(pressure+' ATM');
 		                    $('#wspeed').html(wspeed+' m/s');
-		                    $('#imgIcon').attr('src','http://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
+		                    $('#imgIcon').attr('src','https://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
 
 		                    if (weatherStatus == 'Clouds'){
 		                    	$('body').css('background','url(assets/img/backclouds.jpg) center center no-repeat');
@@ -65,7 +65,7 @@ const tilt = $('.js-tilt').tilt({
 		  		$('#crrTxt').hide();
 		  			var city = $(this).val();
 		  			$.ajax({
-		                url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
+		                url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
 		                type: "GET",
 		                dataType: "jsonp",
 		                success: function(data){
@@ -94,7 +94,7 @@ const tilt = $('.js-tilt').tilt({
 		                    $('#humidity').html(humidity+' %');
 		                    $('#pressure').html(pressure+' ATM');
 		                    $('#wspeed').html(wspeed+' m/s');
-		                    $('#imgIcon').attr('src','http://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
+		                    $('#imgIcon').attr('src','https://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
 
 		                    if (weatherStatus == 'Clouds'){
 		                    	$('body').css('background','url(assets/img/backclouds.jpg) center center no-repeat');
@@ -121,7 +121,7 @@ const tilt = $('.js-tilt').tilt({
 
 				    if (lat && long) {
 				    	$.ajax({
-			                url: "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
+			                url: "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
 			                type: "GET",
 			                dataType: "jsonp",
 			                success: function(data){
@@ -152,7 +152,7 @@ const tilt = $('.js-tilt').tilt({
 			                    $('#humidity').html(humidity+' %');
 			                    $('#pressure').html(pressure+' ATM');
 			                    $('#wspeed').html(wspeed+' m/s');
-			                    $('#imgIcon').attr('src','http://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
+			                    $('#imgIcon').attr('src','https://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
 
 			                    if (weatherStatus == 'Clouds'){
 			                    	$('body').css('background','url(assets/img/backclouds.jpg) center center no-repeat');
@@ -179,7 +179,7 @@ const tilt = $('.js-tilt').tilt({
 		  			if (zipval.length == 6) {
 				  		$('#errtxtinput').hide();
 		  				$.ajax({
-			                url: "http://api.openweathermap.org/data/2.5/weather?zip="+zipval+",in&APPID=9818b2268571197177d80714329e86b6",
+			                url: "https://api.openweathermap.org/data/2.5/weather?zip="+zipval+",in&APPID=9818b2268571197177d80714329e86b6",
 			                type: "GET",
 			                dataType: "jsonp",
 			                success: function(data){
@@ -209,7 +209,7 @@ const tilt = $('.js-tilt').tilt({
 			                    $('#humidity').html(humidity+' %');
 			                    $('#pressure').html(pressure+' ATM');
 			                    $('#wspeed').html(wspeed+' m/s');
-			                    $('#imgIcon').attr('src','http://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
+			                    $('#imgIcon').attr('src','https://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
 
 			                    if (weatherStatus == 'Clouds'){
 			                    	$('body').css('background','url(assets/img/backclouds.jpg) center center no-repeat');
