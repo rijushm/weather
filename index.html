@@ -1,0 +1,598 @@
+<!doctype html>
+<html>
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Weather app">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
+        <style type="text/css">
+        *{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+			font-family: 'Poppins', sans-serif;
+		}
+		h2{
+			font-family: 'Anton', sans-serif;
+			font-weight: 500;
+			letter-spacing: 1px;
+		}
+		body{
+			background-color: #fff;
+			background-attachment: fixed;
+			background-size: cover;
+			height: 100vh;
+			background: url(assets/img/backClear.jpg);
+			background-size: cover;
+			background-repeat: no-repeat;
+			transition: 0.5s;
+		}
+		.container{
+			width: 100%;
+			display: flex;
+			justify-content: flex-end;
+			align-items: center;
+		}
+		.container{
+			padding: 30px 200px;
+		}
+		.card{
+			position: relative;
+			width: 30vw;
+			height: 75vh;
+			background: rgba(0,0,0,0.5);
+			background-size: cover;
+			padding: 10px;
+			border-radius: 5px;
+			transition: 0.5s;
+			box-shadow: 1px 1px 20px rgba(0,0,0,0.3);
+			transform-style: preserve-3d
+		}
+		.infoBox{
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.35);
+			padding: 50px 30px;
+			margin-right: 50px;
+			border-radius: 15px;
+		}
+		.infoBox h2{
+			font-size: 3.4rem;
+			color: #fff;
+		}
+		.infoBox p{
+			font-size: 1.2rem;
+			color: #fff;
+			padding-right: 140px;
+		}
+		.infoBox button{
+			border: none;
+			outline: none;
+			padding: 10px 30px;
+			margin-top: 20px;
+			font-size: 1.2rem;
+			text-transform: uppercase;
+			color: #fff;
+			border-radius: 5px;
+			background: #ee769e;
+			transition: 0.5s;
+			cursor: pointer;
+		}
+		.infoBox label{
+			color: #fff;
+			font-size: 1.2rem;
+		}
+		.infoBox select{
+			width: 300px;
+			padding: 10px 10px;
+			border-radius: 5px;
+			margin-top: 5px;
+			cursor: pointer;
+			border: none;
+			outline: none;
+		}
+		.infoBox input{
+			width: 300px;
+			padding: 10px 10px;
+			border-radius: 5px;
+			cursor: pointer;
+			border: none;
+			outline: none;
+		}
+		.infoBox #searchPin{
+			margin-top: 5px;
+			padding: 6px 18px;
+			transform: translateY(2.5px);
+		}
+		.card .box{
+			position: absolute;
+			bottom: 30px;
+			color: #fff;
+			text-align: center;
+			width: 100%;
+			left: 50%;
+			transform: translateX(-50%) translateZ(20px);
+		}
+		#imgIcon{
+			width: 60px;
+			transform: translateY(10px);
+		}
+		#crrTxt{
+			font-size: 0.5rem;
+			padding: 5px 10px;
+			border: 1px solid #fff;
+			position: absolute;
+			top: 5px;
+			left: 50%;
+			transform: translateX(-50%);
+			text-transform: uppercase;
+			color: #fff;
+		}
+		.card .box i{
+			font-size: 3.5rem;
+			animation: draft 3s linear infinite;
+			margin-bottom: 20px;
+		}
+		.card .box .row{
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-flow: row;
+		}
+		.card .box .row .col-sm-4{
+			width: 30%;
+		}
+		.card .box .row .col-sm-4 .key{
+			font-size: 0.8rem;
+			opacity: 0.8;
+		}
+		@keyframes draft{
+			0%{
+				transform: scale(1);
+			}
+			50%{
+				transform: scale(1.2);
+			}
+			100%{
+				transform: scale(1);
+			}
+		}
+		#tempVal{
+			font-size: 4.5rem;
+		}
+		#tempVal span{
+			font-size: 2.5rem;
+			position: relative;
+			bottom: 30px;
+			font-family: 'Anton', sans-serif;
+		}
+		#maxTemp{
+			color: rgba(255,255,255,0.8);
+			margin-bottom: 10px;
+		}
+		#maxTemp span{
+			color: rgba(255,255,255,1);
+		}
+
+		#errtxtinput{
+			color: #fff;
+			font-size: 0.8rem;
+		}
+
+		.midTxt{
+			display: none;
+		}
+
+		.footer{
+			position: absolute;
+			bottom: 5px;
+			width: 100%;
+			text-align: center;
+			opacity: 0.7;
+			font-size: 0.8rem;
+		}
+		.footer a{
+			text-decoration: none;
+			color: #ee769e;
+
+		}
+
+		@media only screen and (max-width: 600px){
+			.midTxt{
+				display: block;
+				color: #fff;
+				font-size: 1.2rem;
+				margin-top: 25px;
+				text-align: left;
+				padding-bottom: 3px;
+				border-bottom: 2px solid #fff;
+			}
+			.card{
+				position: relative;
+				width: 90vw;
+				height: 80vh;
+				margin-top: 20px;
+				border-radius: 10px;
+			}
+			body, .container{
+				width: 100%;
+				height: auto !important;
+				flex-direction: column;
+			}
+			.container{
+				padding: 30px 20px;
+			}
+			.infoBox{
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.35);
+			padding: 40px 20px;
+			margin-right: 0px;
+			border-radius: 15px;
+		}
+		.infoBox h2{
+			font-size: 1.5rem;
+			color: #fff;
+		}
+		.infoBox p{
+			font-size: 0.9rem;
+			color: #fff;
+			padding-right: 10px;
+			margin-top: 10px;
+		}
+		.infoBox select{
+			width: 100%;
+		}
+		.infoBox input{
+			width: 100%;
+		}
+		.infoBox button{
+			padding: 6px 25px;
+		}
+		.footer{
+			position: relative;
+			bottom: 0px;
+			width: 100%;
+			text-align: center;
+			opacity: 0.7;
+			font-size: 0.8rem;
+		}
+		}
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+
+        	<div class="infoBox">
+        		<div class="content">
+        			<h2>What's happening outside?</h2>
+        			<p>Sunshine is delicious, rain is refreshing, wind braces us up, snow is exhilarating; there is really no such thing as bad weather, only different kinds of good weather.</p>
+        			<button id="currLocation">User Location</button>
+        			<p style="font-size: 1rem;margin: 10px 0px;">OR</p>
+        			<label for="selectOpt">Select City:</label><br>
+        			<select id="selectOpt">
+        				<option value="Kolkata">Kolkata</option>
+        				<option value="Delhi">Delhi</option>
+        				<option value="Mumbai">Mumbai</option>
+        				<option value="Bangalore">Bangalore</option>
+        				<option value="Pune">Pune</option>
+        				<option value="Assam">Assam</option>
+        			</select>
+        			<p style="font-size: 1rem;margin: 10px 0px;">OR</p>
+        			<input type="text" name="pincode" placeholder="Enter Your Indian Zipcode Here ..." id="pincode">
+        			<button id="searchPin"><i class="fas fa-search"></i></button>
+        			<p id="errtxtinput">*Enter A Valid Zipcode</p>
+        		</div>
+        	</div>
+
+
+        	<div class="midTxt">Weather Output</div>
+
+
+        	<div class="card js-tilt" id="card">
+        			<div id="crrTxt">Your Location</div>
+        		<div class="box">
+        			<img id="imgIcon" src="">
+        			<p id="WeatherStat"></p>
+        			<h2 id="location"></h2>
+        			<p id="timeVal">SUN | 22th MAY | 12:26 PM</p>
+        			<h2 id="tempVal"> </h2>
+        			<div class="break"></div>
+        			<p id="maxTemp"></p>
+
+        			<div class="row">
+        				<div class="col-sm-4">
+        					<p class="key">HUMIDITY</p>
+        					<p class="val" id="humidity"></p>
+        				</div>
+        				<div class="col-sm-4">
+        					<p class="key">WIND SPEED</p>
+        					<p class="val" id="wspeed"></p>
+        				</div>
+        				<div class="col-sm-4">
+        					<p class="key">PRESSURE</p>
+        					<p class="val" id="pressure"></p>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+
+        </div>
+
+        <div class="footer">Designed & Developed by <em>Riju Sharma</em> | <a href=""><i class="fab fa-github"></i> View on GitHub</a></div>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js" integrity="sha512-u1L7Dp3BKUP3gijgSRoMTNxmDl/5o+XOHupwwa7jsI1rMzHrllSLKsGOfqjYl8vrEG+8ghnRPNA/SCltmJCZpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript">
+        	const tilt = $('.js-tilt').tilt({
+		  		maxTilt: 10,
+		  		glare: true,
+			    maxGlare: .5
+		  	});
+
+		  	var clouds = 'https://th-thumbnailer.cdn-si-edu.com/5tTIhVxdkv5eLaerH7jKx3R9JvQ=/fit-in/1072x0/https://tf-cmsv2-photocontest-smithsonianmag-prod-approved.s3.amazonaws.com/85b748a5-de2f-43de-a9e7-c7a268cc3373.jpg';
+		  	var rain = 'https://i.pinimg.com/originals/ad/1f/d9/ad1fd97de30dd5dc4f8d0fce71748306.jpg';
+		  	var wind = 'https://images.hindustantimes.com/rf/image_size_630x354/HT/p2/2017/09/24/Pictures/_d62f9324-a0ea-11e7-ba2d-20fa1b34073f.jpg';
+
+		  	$(document).ready(function(){
+
+		  		$('#crrTxt').hide();
+		  		$('#errtxtinput').hide();
+
+		  	var card = document.getElementById('card');
+		  		var city = 'kolkata';
+		  		$.ajax({
+		                url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
+		                type: "GET",
+		                dataType: "jsonp",
+		                success: function(data){
+		                    console.log(data);
+		                    console.log(data.weather[0].main);
+		                    console.log(data.main);
+		                    console.log(data.main.temp);
+
+		                    var information = [data];
+
+		                    var weatherStatus = data.weather[0].main;
+		                    var weatherStatusIcon = data.weather[0].icon;
+		                    var tempmain = data.main.temp;
+		                    var tempmax = data.main.temp_max;
+		                    var tempmin = data.main.temp_min;
+		                    var location = data.name;
+		                    var country = data.sys.country;
+		                    var humidity = data.main.humidity;
+		                    var pressure = data.main.pressure;
+		                    var wspeed = data.wind.speed;
+
+		                    $('#tempVal').html(tempmain+'<span>&deg;C</span>');
+		                    $('#maxTemp').html('HIGH <span>'+tempmax+' &deg;C</span> | LOW <span>'+tempmin+' &deg;C</span>');
+		                    $('#location').html(location+' | '+country);
+		                    $('#WeatherStat').html(weatherStatus);
+		                    $('#humidity').html(humidity+' %');
+		                    $('#pressure').html(pressure+' ATM');
+		                    $('#wspeed').html(wspeed+' m/s');
+		                    $('#imgIcon').attr('src','http://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
+
+		                    if (weatherStatus == 'Clouds'){
+		                    	$('body').css('background','url(assets/img/backclouds.jpg) center center no-repeat');
+		                    }else if (weatherStatus == 'Clear') {
+		                    	$('body').css('background','url(assets/img/backclear.jpg) center center no-repeat');
+		                    }else if (weatherStatus == 'Wind') {
+		                    	$('body').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/backwind.jpg) center center no-repeat');
+		                    }
+		                    $('body').css('background-size','cover');
+
+		                    $('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+		                    $('#card').css('background-size','cover');
+		                }
+		            });
+
+		  		$('#selectOpt').on('change', function(){
+		  		$('#crrTxt').hide();
+		  			var city = $(this).val();
+		  			$.ajax({
+		                url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
+		                type: "GET",
+		                dataType: "jsonp",
+		                success: function(data){
+		                    console.log(data);
+		                    console.log(data.weather[0].main);
+		                    console.log(data.main);
+		                    console.log(data.main.temp);
+
+		                    var information = [data];
+
+		                    var weatherStatus = data.weather[0].main;
+		                    var weatherStatusIcon = data.weather[0].icon;
+		                    var tempmain = data.main.temp;
+		                    var tempmax = data.main.temp_max;
+		                    var tempmin = data.main.temp_min;
+		                    var location = data.name;
+		                    var country = data.sys.country;
+		                    var humidity = data.main.humidity;
+		                    var pressure = data.main.pressure;
+		                    var wspeed = data.wind.speed;
+
+		                    $('#tempVal').html(tempmain+'<span>&deg;C</span>');
+		                    $('#maxTemp').html('HIGH <span>'+tempmax+' &deg;C</span> | LOW <span>'+tempmin+' &deg;C</span>');
+		                    $('#location').html(location+' | '+country);
+		                    $('#WeatherStat').html(weatherStatus);
+		                    $('#humidity').html(humidity+' %');
+		                    $('#pressure').html(pressure+' ATM');
+		                    $('#wspeed').html(wspeed+' m/s');
+		                    $('#imgIcon').attr('src','http://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
+
+		                    if (weatherStatus == 'Clouds'){
+		                    	$('body').css('background','url(assets/img/backclouds.jpg) center center no-repeat');
+		                    }else if (weatherStatus == 'Clear') {
+		                    	$('body').css('background','url(assets/img/backclear.jpg) center center no-repeat');
+		                    }else if (weatherStatus == 'Wind') {
+		                    	$('body').css('background','url(assets/img/backwind.jpg) center center no-repeat');
+		                    }
+		                    $('body').css('background-size','cover');
+
+		                    $('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+		                    $('#card').css('background-size','cover');
+		                }
+		            });
+
+		  		});
+
+
+		  		$('#currLocation').click(function(){
+		  			$(this).html('Please wait..');
+				  navigator.geolocation.getCurrentPosition(function(position) {
+				    let lat = position.coords.latitude;
+				    let long = position.coords.longitude;
+
+				    if (lat && long) {
+				    	$.ajax({
+			                url: "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
+			                type: "GET",
+			                dataType: "jsonp",
+			                success: function(data){
+					  			$('#currLocation').html('Use Location');
+					  			$('#crrTxt').show();
+			                    console.log(data);
+			                    console.log(data.weather[0].main);
+			                    console.log(data.main);
+			                    console.log(data.main.temp);
+
+			                    var information = [data];
+
+			                    var weatherStatus = data.weather[0].main;
+			                    var weatherStatusIcon = data.weather[0].icon;
+			                    var tempmain = data.main.temp;
+			                    var tempmax = data.main.temp_max;
+			                    var tempmin = data.main.temp_min;
+			                    var location = data.name;
+			                    var country = data.sys.country;
+			                    var humidity = data.main.humidity;
+			                    var pressure = data.main.pressure;
+			                    var wspeed = data.wind.speed;
+
+			                    $('#tempVal').html(tempmain+'<span>&deg;C</span>');
+			                    $('#maxTemp').html('HIGH <span>'+tempmax+' &deg;C</span> | LOW <span>'+tempmin+' &deg;C</span>');
+			                    $('#location').html(location+' | '+country);
+			                    $('#WeatherStat').html(weatherStatus);
+			                    $('#humidity').html(humidity+' %');
+			                    $('#pressure').html(pressure+' ATM');
+			                    $('#wspeed').html(wspeed+' m/s');
+			                    $('#imgIcon').attr('src','http://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
+
+			                    if (weatherStatus == 'Clouds'){
+			                    	$('body').css('background','url(assets/img/backclouds.jpg) center center no-repeat');
+			                    }else if (weatherStatus == 'Clear') {
+			                    	$('body').css('background','url(assets/img/backclear.jpg) center center no-repeat');
+			                    }else if (weatherStatus == 'Wind') {
+			                    	$('body').css('background','url(assets/img/backwind.jpg) center center no-repeat');
+			                    }
+			                    $('body').css('background-size','cover');
+
+			                    $('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+			                    $('#card').css('background-size','cover');
+			                }
+			            });
+				    }
+
+				    
+				  });
+			  });
+
+
+		  		$('#searchPin').click(function(){
+		  			var zipval = $('#pincode').val();
+		  			if (zipval.length == 6) {
+				  		$('#errtxtinput').hide();
+		  				$.ajax({
+			                url: "http://api.openweathermap.org/data/2.5/weather?zip="+zipval+",in&APPID=9818b2268571197177d80714329e86b6",
+			                type: "GET",
+			                dataType: "jsonp",
+			                success: function(data){
+					  			$('#crrTxt').hide();
+			                    console.log(data);
+			                    console.log(data.weather[0].main);
+			                    console.log(data.main);
+			                    console.log(data.main.temp);
+
+			                    var information = [data];
+
+			                    var weatherStatus = data.weather[0].main;
+			                    var weatherStatusIcon = data.weather[0].icon;
+			                    var tempmain = (data.main.temp/10).toFixed(2);
+			                    var tempmax = (data.main.temp_max/10).toFixed(2);
+			                    var tempmin = (data.main.temp_min/10).toFixed(2);
+			                    var location = data.name;
+			                    var country = data.sys.country;
+			                    var humidity = data.main.humidity;
+			                    var pressure = data.main.pressure;
+			                    var wspeed = data.wind.speed;
+
+			                    $('#tempVal').html(tempmain+'<span>&deg;C</span>');
+			                    $('#maxTemp').html('HIGH <span>'+tempmax+' &deg;C</span> | LOW <span>'+tempmin+' &deg;C</span>');
+			                    $('#location').html(location+' | '+country);
+			                    $('#WeatherStat').html(weatherStatus);
+			                    $('#humidity').html(humidity+' %');
+			                    $('#pressure').html(pressure+' ATM');
+			                    $('#wspeed').html(wspeed+' m/s');
+			                    $('#imgIcon').attr('src','http://openweathermap.org/img/wn/'+weatherStatusIcon+'@2x.png')
+
+			                    if (weatherStatus == 'Clouds'){
+			                    	$('body').css('background','url(assets/img/backclouds.jpg) center center no-repeat');
+			                    }else if (weatherStatus == 'Clear') {
+			                    	$('body').css('background','url(assets/img/backclear.jpg) center center no-repeat');
+			                    }else if (weatherStatus == 'Wind') {
+			                    	$('body').css('background','url(assets/img/backwind.jpg) center center no-repeat');
+			                    }
+			                    $('body').css('background-size','cover');
+
+			                    $('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/all.jpg) center center no-repeat');
+			                    $('#card').css('background-size','cover');
+			                }
+			            });
+		  			}else{
+				  		$('#errtxtinput').show();
+		  			}
+		  		})
+
+				    	 
+		  });
+
+		  	var timeVal = document.getElementById('timeVal');
+		  	var weatherIcon = document.getElementById('weatherIcon');
+
+		  	
+
+		  	var month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT'];
+		  	var week = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+		  	var date = new Date();
+
+		  	var monthKey = date.getMonth();
+		  	var weekKey = date.getDay();
+		  	var dateVal = date.getDate();
+		  	var hour = date.getHours();
+		  	var minutes = date.getMinutes();
+
+		  	var periods = 'AM';
+
+		  	if (hour > 11) {
+		  		periods = 'PM';
+		  		hour = hour - 12;
+		  	}
+
+		  	if (minutes < 10) {
+		  		minutes = '0'+minutes;
+		  	}
+
+		  	timeVal.innerHTML = `${week[weekKey]} | ${dateVal}th ${month[monthKey]} | ${hour}:${minutes} ${periods}`;
+        </script>
+    </body>
+</html>
