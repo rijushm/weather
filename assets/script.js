@@ -1,3 +1,9 @@
+var results = $.getJSON("assets/city/cities.json", function(data) {
+    for(var i = 0; i < data.length; i++) {
+        $("#selectOpt").append('<option value="' + data[i].name + '">' + data[i].name + '</option');
+    }
+});
+
 const tilt = $('.js-tilt').tilt({
 		  		maxTilt: 10,
 		  		glare: true,
@@ -10,11 +16,13 @@ const tilt = $('.js-tilt').tilt({
 
 		  	$(document).ready(function(){
 
+		  		$('#errtxtgps').hide();
+
 		  		$('#crrTxt').hide();
 		  		$('#errtxtinput').hide();
 
-		  	var card = document.getElementById('card');
-		  		var city = 'kolkata';
+			  	var card = document.getElementById('card');
+		  		var city = 'Kolkata';
 		  		$.ajax({
 		                url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
 		                type: "GET",
@@ -52,16 +60,23 @@ const tilt = $('.js-tilt').tilt({
 		                    }else if (weatherStatus == 'Clear') {
 		                    	$('body').css('background','url(assets/img/backclear.jpg) center center no-repeat');
 		                    }else if (weatherStatus == 'Wind') {
-		                    	$('body').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/backwind.jpg) center center no-repeat');
+		                    	$('body').css('background','url(assets/img/backwind.jpg) center center no-repeat');
+		                    }else if (weatherStatus == 'Rain') {
+		                    	$('body').css('background','url(assets/img/backrains.jpg) center center no-repeat');
 		                    }
 		                    $('body').css('background-size','cover');
 
-		                    $('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+		                    if (city == 'Kolkata' || city == 'Delhi' || city == 'Pune' || city == 'Mumbai' || city == 'Assam' || city == 'Bengaluru') {
+		                    	$('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+		                    }else{
+		                    	$('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(https://source.unsplash.com/1600x900/?'+city+') center center no-repeat');
+		                    }
 		                    $('#card').css('background-size','cover');
 		                }
 		            });
 
 		  		$('#selectOpt').on('change', function(){
+		  			$('#card').css('background','url(assets/img/loader.gif) center center no-repeat');
 		  		$('#crrTxt').hide();
 		  			var city = $(this).val();
 		  			$.ajax({
@@ -102,10 +117,17 @@ const tilt = $('.js-tilt').tilt({
 		                    	$('body').css('background','url(assets/img/backclear.jpg) center center no-repeat');
 		                    }else if (weatherStatus == 'Wind') {
 		                    	$('body').css('background','url(assets/img/backwind.jpg) center center no-repeat');
+		                    }else if (weatherStatus == 'Rain') {
+		                    	$('body').css('background','url(assets/img/backrains.jpg) center center no-repeat');
 		                    }
 		                    $('body').css('background-size','cover');
 
-		                    $('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+		                    if (city == 'Kolkata' || city == 'Delhi' || city == 'Pune' || city == 'Mumbai' || city == 'Assam' || city == 'Bengaluru') {
+		                    	$('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+		                    }else{
+		                    	$('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(https://source.unsplash.com/1600x900/?'+city+') center center no-repeat');
+		                    }
+
 		                    $('#card').css('background-size','cover');
 		                }
 		            });
@@ -114,12 +136,14 @@ const tilt = $('.js-tilt').tilt({
 
 
 		  		$('#currLocation').click(function(){
+		  			$('#card').css('background','url(assets/img/loader.gif) center center no-repeat');
 		  			$(this).html('Please wait..');
 				  navigator.geolocation.getCurrentPosition(function(position) {
 				    let lat = position.coords.latitude;
 				    let long = position.coords.longitude;
 
 				    if (lat && long) {
+				    	$('#errtxtgps').hide();
 				    	$.ajax({
 			                url: "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+long+"&units=metric" + "&APPID=9818b2268571197177d80714329e86b6",
 			                type: "GET",
@@ -160,13 +184,23 @@ const tilt = $('.js-tilt').tilt({
 			                    	$('body').css('background','url(assets/img/backclear.jpg) center center no-repeat');
 			                    }else if (weatherStatus == 'Wind') {
 			                    	$('body').css('background','url(assets/img/backwind.jpg) center center no-repeat');
+			                    }else if (weatherStatus == 'Rain') {
+			                    	$('body').css('background','url(assets/img/backrains.jpg) center center no-repeat');
 			                    }
 			                    $('body').css('background-size','cover');
 
-			                    $('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+			                    if (city == 'Kolkata' || city == 'Delhi' || city == 'Pune' || city == 'Mumbai' || city == 'Assam' || city == 'Bengaluru') {
+			                    	$('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+			                    }else{
+			                    	$('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(https://source.unsplash.com/1600x900/?'+city+') center center no-repeat');
+			                    }
+
 			                    $('#card').css('background-size','cover');
 			                }
 			            });
+				    }else{
+				    	$('#currLocation').html('Use Location');
+				    	$('#errtxtgps').show();
 				    }
 
 				    
@@ -175,6 +209,7 @@ const tilt = $('.js-tilt').tilt({
 
 
 		  		$('#searchPin').click(function(){
+		  			$('#card').css('background','url(assets/img/loader.gif) center center no-repeat');
 		  			var zipval = $('#pincode').val();
 		  			if (zipval.length == 6) {
 				  		$('#errtxtinput').hide();
@@ -217,11 +252,26 @@ const tilt = $('.js-tilt').tilt({
 			                    	$('body').css('background','url(assets/img/backclear.jpg) center center no-repeat');
 			                    }else if (weatherStatus == 'Wind') {
 			                    	$('body').css('background','url(assets/img/backwind.jpg) center center no-repeat');
+			                    }else if (weatherStatus == 'Rain') {
+			                    	$('body').css('background','url(assets/img/backrains.jpg) center center no-repeat');
 			                    }
 			                    $('body').css('background-size','cover');
 
-			                    $('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/all.jpg) center center no-repeat');
-			                    $('#card').css('background-size','cover');
+			                    $.ajax({
+			                    	url: 'https://api.postalpincode.in/pincode/'+zipval,
+			                    	success: function(data){
+			                    		city = data[0].PostOffice[0].Region;
+
+			                    		if (city == 'Kolkata' || city == 'Delhi' || city == 'Pune' || city == 'Mumbai' || city == 'Assam' || city == 'Bengaluru') {
+					                    	$('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(assets/img/city/'+city+'.jpg) center center no-repeat');
+					                    }else{
+					                    	$('#card').css('background','linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.8)), url(https://source.unsplash.com/1600x900/?'+city+') center center no-repeat');
+					                    }
+
+					                    $('#card').css('background-size','cover');
+					                    	}
+				                    });
+			                    
 			                }
 			            });
 		  			}else{

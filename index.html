@@ -48,7 +48,7 @@
 			background: rgba(0,0,0,0.5);
 			background-size: cover;
 			padding: 10px;
-			border-radius: 5px;
+			border-radius: 10px;
 			transition: 0.5s;
 			box-shadow: 1px 1px 20px rgba(0,0,0,0.3);
 			transform-style: preserve-3d
@@ -56,7 +56,11 @@
 		.infoBox{
 			width: 100%;
 			height: 100%;
-			background-color: rgba(0, 0, 0, 0.35);
+			background: rgba( 255, 255, 255, 0.25 );
+			box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.37 );
+			backdrop-filter: blur( 4px );
+			-webkit-backdrop-filter: blur( 4px );
+			border: 1px solid rgba( 255, 255, 255, 0.18 );
 			padding: 50px 30px;
 			margin-right: 50px;
 			border-radius: 15px;
@@ -180,7 +184,7 @@
 			color: rgba(255,255,255,1);
 		}
 
-		#errtxtinput{
+		#errtxtinput,#errtxtgps{
 			color: #fff;
 			font-size: 0.8rem;
 		}
@@ -196,6 +200,7 @@
 			text-align: center;
 			opacity: 0.7;
 			font-size: 0.8rem;
+			color: #fff;
 		}
 		.footer a{
 			text-decoration: none;
@@ -262,7 +267,7 @@
 			width: 100%;
 			text-align: center;
 			opacity: 0.7;
-			font-size: 0.8rem;
+			font-size: 0.7rem;
 		}
 		}
         </style>
@@ -276,15 +281,11 @@
         			<h2>What's happening outside?</h2>
         			<p>Sunshine is delicious, rain is refreshing, wind braces us up, snow is exhilarating; there is really no such thing as bad weather, only different kinds of good weather.</p>
         			<button id="currLocation">User Location</button>
+        			<p id="errtxtgps">*Turn on device location and try again</p>
         			<p style="font-size: 1rem;margin: 10px 0px;">OR</p>
         			<label for="selectOpt">Select City:</label><br>
         			<select id="selectOpt">
-        				<option value="Kolkata">Kolkata</option>
-        				<option value="Delhi">Delhi</option>
-        				<option value="Mumbai">Mumbai</option>
-        				<option value="Bangalore">Bangalore</option>
-        				<option value="Pune">Pune</option>
-        				<option value="Assam">Assam</option>
+        				
         			</select>
         			<p style="font-size: 1rem;margin: 10px 0px;">OR</p>
         			<input type="text" name="pincode" placeholder="Enter Your Indian Zipcode Here ..." id="pincode">
@@ -297,7 +298,7 @@
         	<div class="midTxt">Weather Output</div>
 
 
-        	<div class="card js-tilt" id="card">
+        	<div class="card js-tilt" id="card" style="background: url(assets/img/loader.gif);">
         			<div id="crrTxt">Your Location</div>
         		<div class="box">
         			<img id="imgIcon" src="">
@@ -327,7 +328,7 @@
 
         </div>
 
-        <div class="footer">Designed & Developed by <em>Riju Sharma</em> | <a href=""><i class="fab fa-github"></i> View on GitHub</a></div>
+        <div class="footer">Designed & Developed by <em>Riju Sharma</em> | <a href="https://github.com/rijushm/weather" target="_null"><i class="fab fa-github"></i> View on GitHub</a></div>
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
