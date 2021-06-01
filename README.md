@@ -12,7 +12,6 @@ Languages used -
 * CSS3
 * JavaScript
 * jQuery
-* PHP
 
 The processes are given below
 
